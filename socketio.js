@@ -17,6 +17,11 @@ const socketHandler =  {
                     code
                 });
             });
+
+            socket.on("end", ({roomId}) => {
+                console.log("user left the room: "+ roomId)
+                socket.disconnect(0)
+            })
         });
     }
 };

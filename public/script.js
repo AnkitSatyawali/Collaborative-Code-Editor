@@ -3,7 +3,7 @@ var editorRef = null;
 var roomID = null;
 
 $(document).ready(() => {
-    $('#Editor').hide();
+    $('#editor').hide();
 });
 
 function initializeEditor() {
@@ -39,7 +39,7 @@ function connectClient() {
     console.log(roomID);
     socket.emit("join",{roomId:roomID});
     $("#main").hide();
-    $('#Editor').show();
+    $('#editor').show();
     initializeEditor();
 }
 
@@ -55,4 +55,10 @@ socket.on("SYNC_CODE",(code) => {
 function syncCodeWithEditor(code) {
     console.log(code.code);
     editorRef.setValue(code.code);
+}
+
+function disconnectClient(){
+    socket.emit("end", {roomId: roomID});
+    $('#editor').hide();
+    $("#main").show();
 }
